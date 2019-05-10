@@ -18,8 +18,11 @@
 
 ;;
 
+;; Users can change this if they don't like the default.
 (define cache-dir (build-path (current-directory) ".cache"))
 
+;; Usage: (cache-http cache-name url [keyword-args])
+;; Any keyword-args are passed to http-sendrecv/url.
 (define cache-http
   (make-keyword-procedure
    (lambda (kw-syms kw-args cache-name url)
@@ -50,6 +53,8 @@
       (if (eof-object? x) xs (loop (append xs (list x)))))))
 
 ;;
+
+;; Example: (scrape-html (cache-http "example.html" "https://example.com/"))
 
 (define (scrape-bytes path)
   (call-with-input-file path port->bytes))
